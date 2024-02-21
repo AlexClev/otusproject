@@ -51,24 +51,6 @@ prometheus:
   datasource:
     jsonData: "{}"
 
-filebeat:
-  enabled: false
-  filebeatConfig:
-    filebeat.yml: |
-      # logging.level: debug
-      filebeat.inputs:
-      - type: container
-        paths:
-          - /var/log/containers/*.log
-        processors:
-        - add_kubernetes_metadata:
-            host: ${NODE_NAME}
-            matchers:
-            - logs_path:
-                logs_path: "/var/log/containers/"
-      output.logstash:
-        hosts: ["logstash-loki:5044"]
-
 logstash:
   enabled: false
   image: grafana/logstash-output-loki
