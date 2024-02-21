@@ -17,14 +17,7 @@ spec:
       valueFiles: |
         loki:
           enabled: true
-          persistence:
-            type: pvc
-            enabled: true
-            existingClaim: loki
-          securityContext:
-            runAsGroup: 10001
-            runAsUser: 10001
-
+  
         promtail:
           enabled: false
 
