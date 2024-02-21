@@ -13,12 +13,77 @@ spec:
   source:
     chart: loki-stack
     repoURL: https://github.com/AlexClev/otusproject/tree/main/Monitoring/helm-charts/loki-stack
-    targetRevision: 2.5.0
     helm:
-      valueFiles:
-        - values.yaml
-  syncPolicy:
-    automated:
-      prune: true
+      valueFiles: |
+        loki:
+          enabled: true
+          persistence:
+            type: pvc
+            enabled: true
+            existingClaim: loki
+          securityContext:
+            runAsGroup: 10001
+            runAsUser: 10001
+
+        promtail:
+          enabled: false
+
+        fluent-bit:
+          enabled: false
+
+        grafana:
+          enabled: true
+          namespaceOverride: grafana
+          sidecar:
+            datasources:
+              enabled: false
+          image:
+            tag: 10.3.3
+          
+        prometheus:
+          enabled: true
+          forceNamespace: prometheus
+          configmapReload:
+            prometheus:
+              enabled: false
+            alertmanager:
+              enabled: false
+          server:
+            resources:
+              limits:
+                cpu: 800m
+                memory: 1Gi
+              requests:
+                cpu: 500m
+                memory: 512Mi
+          alertmanager:
+            persistentVolume:
+              enabled: true
+              existingClaim: prometheus-alertmanager
+              accessModes:
+                - ReadWriteMany
+            resources:
+              limits:
+                cpu: 100m
+                memory: 100Mi
+              requests:
+                cpu: 50m
+                memory: 50Mi
+          nodeExporter:
+            enabled: true
+            resources:
+              limits:
+                cpu: 200m
+                memory: 50Mi
+              requests:
+                cpu: 100m
+                memory: 30Mi
+
+        filebeat:
+          enabled: false
+
+        logstash:
+          enabled: false
+        
 
   
