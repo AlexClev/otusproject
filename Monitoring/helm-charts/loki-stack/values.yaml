@@ -1,5 +1,5 @@
 test_pod:
-  enabled: true
+  enabled: false
   image: bats/bats:1.8.2
   pullPolicy: IfNotPresent
 
@@ -23,7 +23,7 @@ loki:
 
 
 promtail:
-  enabled: true
+  enabled: false
   config:
     logLevel: info
     serverPort: 3101
@@ -34,7 +34,7 @@ fluent-bit:
   enabled: false
 
 grafana:
-  enabled: false
+  enabled: true
   sidecar:
     datasources:
       label: ""
@@ -45,7 +45,7 @@ grafana:
     tag: 8.3.5
 
 prometheus:
-  enabled: false
+  enabled: true
   isDefault: false
   url: http://{{ include "prometheus.fullname" .}}:{{ .Values.prometheus.server.service.servicePort }}{{ .Values.prometheus.server.prefixURL }}
   datasource:
