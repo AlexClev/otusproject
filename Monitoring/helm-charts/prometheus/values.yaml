@@ -331,7 +331,7 @@ server:
 
     ## Prometheus server Ingress annotations
     ##
-    annotations: {}
+    annotations: 
       kubernetes.io/ingress.class: nginx
     #   kubernetes.io/tls-acme: 'true'
 
@@ -345,7 +345,7 @@ server:
     ## Prometheus server Ingress hostnames with optional path
     ## Must be provided if Ingress is enabled
     ##
-    hosts: []
+    hosts: 
       - prometheus.158.160.147.119.nip.io
     #   - domain.com/prometheus
 
