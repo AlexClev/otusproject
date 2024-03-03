@@ -862,7 +862,7 @@ metrics:
 volumePermissions:
   ## @param volumePermissions.enabled Enable init container that changes the owner/group of the PV mount point to `runAsUser:fsGroup`
   ##
-  enabled: true
+  enabled: false
   ## OS Shell + Utility image
   ## ref: https://hub.docker.com/r/bitnami/os-shell/tags/
   ## @param volumePermissions.image.registry [default: REGISTRY_NAME] OS Shell + Utility image registry
@@ -913,7 +913,7 @@ volumePermissions:
   ##
   containerSecurityContext:
     seLinuxOptions: null
-    runAsUser: 0
+    runAsUser: 1001
 ## @section Diagnostic Mode Parameters
 
 ## Enable diagnostic mode in the deployment
