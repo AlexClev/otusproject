@@ -1086,7 +1086,7 @@ gateway:
   ingress:
     ## @param gateway.ingress.enabled Enable ingress record generation for Loki Gateway
     ##
-    enabled: true
+    enabled: false
     ## @param gateway.ingress.pathType Ingress path type
     ##
     pathType: ImplementationSpecific

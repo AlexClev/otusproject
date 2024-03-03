@@ -687,7 +687,8 @@ ingress:
   apiVersion: ""
   ## @param ingress.hostname When the ingress is enabled, a host pointing to this will be created
   ##
-  hostname: grafana.158.160.147.119.nip.io
+  hostname: grafana.projectotus.publicvm.com
+  # hostname: grafana.158.160.147.119.nip.io
   ## @param ingress.path Default path for the ingress resource
   ## The Path to Grafana. You may need to set this to '/*' in order to use this with ALB ingress controllers.
   ##
