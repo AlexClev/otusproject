@@ -389,7 +389,7 @@ grafana:
     fsGroupChangePolicy: Always
     sysctls: []
     supplementalGroups: []
-    fsGroup: 1001
+    fsGroup: 0
   ## Configure Container Security Context
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
   ## @param grafana.containerSecurityContext.enabled Enabled containers' Security Context
@@ -406,8 +406,8 @@ grafana:
   containerSecurityContext:
     enabled: true
     seLinuxOptions: null
-    runAsUser: 1001
-    runAsGroup: 1001
+    runAsUser: 0
+    runAsGroup: 0
     runAsNonRoot: true
     privileged: false
     readOnlyRootFilesystem: false
@@ -913,7 +913,7 @@ volumePermissions:
   ##
   containerSecurityContext:
     seLinuxOptions: null
-    runAsUser: 1001
+    runAsUser: 0
 ## @section Diagnostic Mode Parameters
 
 ## Enable diagnostic mode in the deployment
