@@ -252,9 +252,14 @@ dashboardsConfigMaps: []
 ## Import datasources from an externally-managed secret, or a secret definition set via Helm values.
 ##
 datasources:
+  - name: Prometheus
+    type: prometheus
+    url: http://prometheus-server:80
+    isDefault: true
+
   ## @param datasources.secretName The name of an externally-managed secret containing custom datasource files.
   ##
-  secretName: Prometheus
+  secretName: ""
   ## @param datasources.secretDefinition The contents of a secret defining a custom datasource file. Only used if datasources.secretName is empty or not defined.
   ## Example:
   ## secretDefinition:
@@ -266,13 +271,7 @@ datasources:
   ##     access: proxy
   ##     isDefault: true
   ##
-  secretDefinition: 
-    apiVersion: 1
-    datasources:
-    - name: Prometheus
-      type: prometheus
-      url: http://prometheus-server:80
-      isDefault: true
+  secretDefinition: {}
 ## Create notifiers from a configMap
 ## The notifiersName must contain the files
 ## @param notifiers.configMapName Name of a ConfigMap containing Grafana notifiers configuration
