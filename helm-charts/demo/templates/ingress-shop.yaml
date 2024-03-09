@@ -10,7 +10,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   rules:
-  - host: shop.projectotus.publicvm.com
+  - host: {{ .Values.ingress.externalname }}
     http:
       paths:
       - backend:

@@ -195,3 +195,6 @@ cartDatabase:
     endpointAddress: ""
     endpointPort: ""
     certificate: ""
+
+ingress:
+  externalname: shop.projectotus.publicvm.com
