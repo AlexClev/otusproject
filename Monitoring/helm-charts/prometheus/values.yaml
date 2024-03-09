@@ -346,7 +346,8 @@ server:
     ## Must be provided if Ingress is enabled
     ##
     hosts: 
-      - prometheus.158.160.147.119.nip.io
+    #  - prometheus.158.160.147.119.nip.io
+      - prometheus.projectotus.publicvm.com
     #   - domain.com/prometheus
 
     path: /
