@@ -198,3 +198,4 @@ cartDatabase:
 
 ingress:
   externalname: shop.projectotus.publicvm.com
+  clusterissuer: otus-clusterissuer

@@ -1177,3 +1177,12 @@ metrics:
 ##
 rbac:
   create: true
+
+issuer:
+  name: otus-clusterissuer
+  server: https://acme-v02.api.letsencrypt.org/directory
+  email: <begunov@mail.ru>
+  privateKeyname: otus-templ
+
+
+
