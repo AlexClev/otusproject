@@ -2860,7 +2860,7 @@ prometheus:
 
   ## Annotations for Prometheus
   ##
-  annotations: {}
+  annotations: argocd.argoproj.io/sync-options: ServerSideApply=true
 
   ## Configure network policy for the prometheus
   networkPolicy:
