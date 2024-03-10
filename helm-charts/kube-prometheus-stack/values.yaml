@@ -2244,7 +2244,8 @@ prometheusOperator:
       ## Configuration for Prometheus operator Webhook service
       ##
       service:
-        annotations: {}
+        annotations: 
+          argocd.argoproj.io/sync-options: ServerSideApply=true
         labels: {}
         clusterIP: ""
 
