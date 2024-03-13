@@ -1,7 +1,7 @@
 name: ci
 
 on:
-  pull_request:
+  push:
     # при создании pull request на main
     branches: [ main ]
 
