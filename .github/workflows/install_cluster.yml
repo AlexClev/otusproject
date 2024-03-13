@@ -14,6 +14,8 @@ jobs:
       ya_zone: ru-central1-a
       ya_subnet: default-ru-central1-a
       ya_account: svckursovik
+      ya_cloud_id: b1gi91nvj5m7ajci95v9
+      ya_folder_id: b1g38fjsltr2a35lkcg3
    
     steps:
       - name: Checkout
@@ -26,7 +28,7 @@ jobs:
 
       - name: install CLI
         run: |
- #         curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash -s -- -h
+          curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash -s -- -h
  
       - name: install kubectl
         run: |
@@ -35,6 +37,11 @@ jobs:
           echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
           sudo apt-get update
           sudo apt-get install -y kubectl
+
+      - name: set yandex env
+        run: |
+          yc config set cloud-id ${{ env.ya_cloud_id }}
+          yc config set folder-id ${{ env.ya_folder_id }}
 
       - name: Create cluster
         run: |
@@ -50,6 +57,7 @@ jobs:
             --service-ipv4-range 1172.17.1.0/16 \
             --service-account-name ${{ env.ya_account }} \
             --node-service-account-name ${{ env.ya_account }} \
+
 
 
           
