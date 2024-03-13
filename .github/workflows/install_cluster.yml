@@ -8,6 +8,12 @@ on:
 jobs:
   create_cluster:
     runs-on: ubuntu-latest
+    env:
+      ya_cluster_name: testcluster
+      ya_network-name: default
+      ya_zone: ru-central1-a
+      ya_subnet: default-ru-central1-a
+      
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -15,7 +21,20 @@ jobs:
       - name: Yandex Cloud login
         uses: yc-actions/yc-cr-login@v1
         with:
-          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+          yc-sa-json-credentials: ${{ secrets.YC_SA }}
+
+      - name: install CLI
+        run: |
+ #         curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash -s -- -h
+ 
+      - name: install kubectl
+        run: |
+          sudo apt-get update && sudo apt-get install -y apt-transport-https
+          curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+          echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+          sudo apt-get update
+          sudo apt-get install -y kubectl
+
       - name: Create cluster
         env:
           CR_REGISTRY: ${{secrets.YANDEX_REGISTRY_ID}}
@@ -23,13 +42,18 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
           VM_ID: ${{secrets.VM_ID}}
         run: |
-          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPO:$IMAGE_TAG .
-          docker push cr.yandex/$CR_REGISTRY/$CR_REPO:$IMAGE_TAG
-  install_agro: 
-    runs-on: ubuntu-latest
-    needs: [create_cluster]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+          yc managed-kubernetes cluster create \
+            --name ${{ ya_cluster_name }} \
+            --network-name ${{ ya_network-name }} \
+            --zone ${{ ya_zone }} \
+            --subnet-name ${{ ya_subnet }} \
+            --public-ip \
+            --release-channel regular \
+            --version 1.25 \
+            --cluster-ipv4-range 172.16.1.0/16 \
+            --service-ipv4-range 1172.17.1.0/16 \
+            --service-account-name default-sa \
+            --node-service-account-name default-sa \
+
 
           
