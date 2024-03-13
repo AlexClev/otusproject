@@ -28,7 +28,9 @@ jobs:
 
       - name: install CLI
         run: |
-          curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash -s -- -h
+#          curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash -s -- -h
+          curl https://raw.githubusercontent.com/Jokero/yandex-cloud-cli-install-for-ci/master/install.sh | bash
+          export PATH=$PATH:~/yandex-cloud/bin
  
 #      - name: install kubectl
 #        run: |
