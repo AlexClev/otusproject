@@ -39,17 +39,17 @@ jobs:
       - name: Create cluster
         run: |
           yc managed-kubernetes cluster create \
-            --name ${{ evn.ya_cluster_name }} \
-            --network-name ${{ evn.ya_network-name }} \
-            --zone ${{ evn.ya_zone }} \
-            --subnet-name ${{ evn.ya_subnet }} \
+            --name ${{ env.ya_cluster_name }} \
+            --network-name ${{ env.ya_network-name }} \
+            --zone ${{ env.ya_zone }} \
+            --subnet-name ${{ env.ya_subnet }} \
             --public-ip \
             --release-channel regular \
             --version 1.25 \
             --cluster-ipv4-range 172.16.1.0/16 \
             --service-ipv4-range 1172.17.1.0/16 \
-            --service-account-name ${{ evn.ya_account }} \
-            --node-service-account-name ${{ evn.ya_account }} \
+            --service-account-name ${{ env.ya_account }} \
+            --node-service-account-name ${{ env.ya_account }} \
 
 
           
