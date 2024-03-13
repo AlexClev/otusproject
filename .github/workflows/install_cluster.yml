@@ -40,6 +40,7 @@ jobs:
 
       - name: set yandex env
         run: |
+          cd /opt/yc
           yc config set cloud-id ${{ env.ya_cloud_id }}
           yc config set folder-id ${{ env.ya_folder_id }}
 
