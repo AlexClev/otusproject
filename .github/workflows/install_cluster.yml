@@ -8,15 +8,14 @@ on:
 jobs:
   create_cluster:
     runs-on: ubuntu-latest
-   
-    steps:
     env:
       ya_cluster_name: testcluster
       ya_network-name: default
       ya_zone: ru-central1-a
       ya_subnet: default-ru-central1-a
       ya_account: svckursovik
-      
+   
+    steps:
       - name: Checkout
         uses: actions/checkout@v2
         
