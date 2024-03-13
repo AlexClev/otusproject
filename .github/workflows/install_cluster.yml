@@ -28,7 +28,7 @@ jobs:
 
       - name: install CLI
         run: |
-          curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash -s -- -i /opt/yc -n
+          curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash -s -- -a
  
 #      - name: install kubectl
 #        run: |
@@ -37,10 +37,14 @@ jobs:
 #          echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
  #         sudo apt-get update
 #          sudo apt-get install -y kubectl
+      - name:  test ya
+        uses: nikita-volkov/yc-cli.github-action@v1.0.0
+        with: 
+          key: ${{ secrets.YC_SA }}
+          args: config set cloud-id ${{ env.ya_cloud_id }}
 
       - name: set yandex env
         run: |
-          cd /opt/yc
           yc config set cloud-id ${{ env.ya_cloud_id }}
           yc config set folder-id ${{ env.ya_folder_id }}
 
