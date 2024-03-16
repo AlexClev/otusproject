@@ -80,6 +80,7 @@ jobs:
           --fixed-size 1 \
           --memory 4 \
           --name testgroup \
+          --platform-id Intel Ice Lake \
           --container-runtime containerd \
           --preemptible \
           --network-interface subnets=${{ env.ya_subnet }}
