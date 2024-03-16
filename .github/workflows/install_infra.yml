@@ -1,4 +1,4 @@
-name: create yandex cluster
+name: create infrastructure
 
 on:
   workflow_dispatch
