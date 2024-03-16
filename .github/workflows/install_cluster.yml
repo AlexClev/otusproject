@@ -84,7 +84,7 @@ jobs:
           --version 1.26 \
           --cluster-ipv4-range 172.16.16.0/22 \
           --service-ipv4-range 172.16.20.0/22 \
-          --node_ipv4_cidr_mask_size 26 \
+          --node-ipv4-mask-size 26 \
           --service-account-name ${{ env.ya_account }} \
           --node-service-account-name ${{ env.ya_account }} 
 
