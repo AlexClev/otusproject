@@ -10,7 +10,7 @@ jobs:
   create_cluster:
     runs-on: ubuntu-latest
     env:
-      ya_cluster_name: ${{ YA_CLUSTER_NAME }}
+      ya_cluster_name: ${{ env.YA_CLUSTER_NAME }}
       ya_network-name: default
       ya_zone: ru-central1-a
       ya_subnet: default-ru-central1-a
