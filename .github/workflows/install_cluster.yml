@@ -62,9 +62,10 @@ jobs:
           --release-channel regular \
           --version 1.25 \
           --cluster-ipv4-range 172.16.1.0/16 \
-          --service-ipv4-range 1172.17.1.0/16 \
+          --service-ipv4-range 172.17.1.0/16 \
           --service-account-name ${{ env.ya_account }} \
           --node-service-account-name ${{ env.ya_account }} 
+          --service-account-key ${{ secrets.YC_SA }}
 
 #      - name: Create cluster
 #        uses: nikita-volkov/yc-cli.github-action@v1.0.0
