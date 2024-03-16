@@ -38,13 +38,18 @@ jobs:
           yc config set folder-id ${{ env.ya_folder_id }}
           yc config set service-account-key key.json
    
+#      - name: install kubectl
+#        run: |
+#          sudo apt-get update && sudo apt-get install -y apt-transport-https
+#          curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+#          echo "deb http://packages.cloud.google.com/apt/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+#          sudo apt-get update
+#          sudo apt-get install -y kubectl
       - name: install kubectl
         run: |
-          sudo apt-get update && sudo apt-get install -y apt-transport-https
-          curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-          echo "deb http://packages.cloud.google.com/apt/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+          sudo apt-add-repository 'deb http://packages.cloud.google.com/apt/ kubernetes-xenial main
+          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
           sudo apt-get update
-          sudo apt-get install -y kubectl
 
       - name: set yandex env
         run: |
