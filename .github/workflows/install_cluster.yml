@@ -100,7 +100,7 @@ jobs:
           --core-fraction 20 \
           --disk-size 64 \
           --disk-type network-hdd \
-          --fixed-size 1 \
+          --fixed-size 2 \
           --memory 4 \
           --name testgroup \
           --platform-id standard-v3 \
