@@ -82,8 +82,8 @@ jobs:
           --public-ip \
           --release-channel regular \
           --version 1.26 \
-          --cluster-ipv4-range 172.16.1.0/24 \
-          --service-ipv4-range 172.16.2.0/24 \
+          --cluster-ipv4-range 172.16.1.0/20 \
+          --service-ipv4-range 172.16.100.0/20 \
           --service-account-name ${{ env.ya_account }} \
           --node-service-account-name ${{ env.ya_account }} 
 
