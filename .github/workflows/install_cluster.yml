@@ -78,11 +78,11 @@ jobs:
           --disk-size 64 \
           --disk-type network-hdd \
           --fixed-size 1 \
-          --location ${{ env.ya_zone }} \
           --memory 4 \
           --name test_group \
           --container-runtime containerd \
-          --preemptible
+          --preemptible \
+          --network-interface subnets=${{ env.ya_subnet }}
  
 
 
