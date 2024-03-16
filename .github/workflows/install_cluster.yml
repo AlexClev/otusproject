@@ -54,14 +54,14 @@ jobs:
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA }}
 
+      - name: Create key
+        run: 'echo ${{ secrets.YC_SA }} > key.json'
+
       - name: set yandex env
         run: |
           yc config set cloud-id ${{ env.ya_cloud_id }}
           yc config set folder-id ${{ env.ya_folder_id }}
-
-
-
-
+          yc config set service-account-key key.json
 
       - name: Create cluster
 #        uses: nikita-volkov/yc-cli.github-action@v1.0.0
