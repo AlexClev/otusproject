@@ -21,10 +21,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
-      - name: Yandex Cloud login
-        uses: yc-actions/yc-cr-login@v1
-        with:
-          yc-sa-json-credentials: ${{ secrets.YC_SA }}
+#      - name: Yandex Cloud login
+#        uses: yc-actions/yc-cr-login@v1
+#        with:
+#          yc-sa-json-credentials: ${{ secrets.YC_SA }}
 
 #      - name: install CLI
 #        run: |
@@ -48,11 +48,11 @@ jobs:
 #          key: ${{ secrets.YC_SA }}
 #          args: config set cloud-id ${{ env.ya_cloud_id }}
 
-      - name: IAM Token
-        id: issue-iam-token
-        uses: yc-actions/yc-iam-token@v1
-        with:
-          yc-sa-json-credentials: ${{ secrets.YC_SA }}
+#      - name: IAM Token
+#        id: issue-iam-token
+#        uses: yc-actions/yc-iam-token@v1
+#        with:
+#          yc-sa-json-credentials: ${{ secrets.YC_SA }}
 
       - run: 'echo "$SSH_KEY" > key.json'
         shell: bash
