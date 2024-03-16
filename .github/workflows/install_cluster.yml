@@ -74,7 +74,7 @@ jobs:
           yc managed-kubernetes node-group create \
           --cluster-name ${{ env.ya_cluster_name }} \
           --cores 4 \
-          --core-fraction 20% \
+          --core-fraction 20 \
           --disk-size 64 \
           --disk-type network-hdd \
           --fixed-size 1 \
