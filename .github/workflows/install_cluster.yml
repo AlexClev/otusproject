@@ -79,7 +79,7 @@ jobs:
           --disk-type network-hdd \
           --fixed-size 1 \
           --memory 4 \
-          --name test_group \
+          --name testgroup \
           --container-runtime containerd \
           --preemptible \
           --network-interface subnets=${{ env.ya_subnet }}
