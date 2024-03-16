@@ -45,16 +45,21 @@ jobs:
 #          echo "deb http://packages.cloud.google.com/apt/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 #          sudo apt-get update
 #          sudo apt-get install -y kubectl
-
+#      
 
       - name: install kubectl
-        run: |
-          mkdir -p /etc/apt/keyrings
-          sudo apt-get install -y apt-transport-https ca-certificates curl
-          curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg  --no-tty --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-          echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
-          sudo apt-get update
-          sudo apt-get install -y kubectl
+        uses: azure/setup-kubectl@v3
+        id: install
+
+
+#      - name: install kubectl
+#        run: |
+#          mkdir -p /etc/apt/keyrings
+#          sudo apt-get install -y apt-transport-https ca-certificates curl
+#          curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg  --no-tty --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+#          echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+#          sudo apt-get update
+#          sudo apt-get install -y kubectl
 
 
 #          echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
