@@ -85,7 +85,7 @@ jobs:
 
       - name: install ingress
         run: |
-          kubectl apply -f https://raw.githubusercontent.com/AlexClev/otusproject/main/ingress/ingress-deploy.yaml -wait
+          kubectl apply -f https://raw.githubusercontent.com/AlexClev/otusproject/main/ingress/ingress-deploy.yaml 
 
       - name: create keys for argo
         run: 'echo "${{ secrets.ARGO_CRT }}" > tls.crt && echo "${{ secrets.ARGO_KEY }}" > tls.key'
@@ -104,7 +104,6 @@ jobs:
 
       - name: change pass argocd 
         run: |
-          
           kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 #          argocd login <ARGOCD_SERVER>
 
