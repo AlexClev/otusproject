@@ -48,15 +48,16 @@ jobs:
 #          key: ${{ secrets.YC_SA }}
 #          args: config set cloud-id ${{ env.ya_cloud_id }}
 
+      - name: IAM Token
+        id: issue-iam-token
+        uses: yc-actions/yc-iam-token@v1
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_SA }}
+
       - name: set yandex env
         run: |
-          yc config profile create my-robot-profile
-          yc config set service-account-key ${{ secrets.YC_SA }}
           yc config set cloud-id ${{ env.ya_cloud_id }}
           yc config set folder-id ${{ env.ya_folder_id }}
-          yc config list
-
-#          --service-account-key ${{ secrets.YC_SA }}
 
 #      - name: Create cluster
 #        uses: nikita-volkov/yc-cli.github-action@v1.0.0
