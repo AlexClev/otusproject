@@ -77,7 +77,7 @@ jobs:
 
       - name: Create nodes
         run: |
-          yc managed-kubernetes node-group create testgroup \
+          yc managed-kubernetes node-group create testgroup2 \
           --cluster-name ${{ env.ya_cluster_name }} \
           --cores 4 \
           --core-fraction 20 \
@@ -89,7 +89,7 @@ jobs:
           --container-runtime containerd \
           --preemptible \
           --network-interface subnets=${{ env.ya_subnet }} \
- #         --metadata ssh-keys=${{ secrets.YC_SSH_KEY }}
+          --metadata ssh-keys="${{ secrets.YC_SSH_KEY }}"
           
 
 
