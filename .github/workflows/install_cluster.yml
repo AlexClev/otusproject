@@ -51,6 +51,7 @@ jobs:
       - name: set yandex env
         run: |
           yc config profile create my-robot-profile
+          yc config set service-account-key ${{ secrets.YC_SA }}
           yc config set cloud-id ${{ env.ya_cloud_id }}
           yc config set folder-id ${{ env.ya_folder_id }}
           yc managed-kubernetes cluster create \
@@ -65,7 +66,7 @@ jobs:
           --service-ipv4-range 172.17.1.0/16 \
           --service-account-name ${{ env.ya_account }} \
           --node-service-account-name ${{ env.ya_account }} 
-          --service-account-key ${{ secrets.YC_SA }}
+#          --service-account-key ${{ secrets.YC_SA }}
 
 #      - name: Create cluster
 #        uses: nikita-volkov/yc-cli.github-action@v1.0.0
