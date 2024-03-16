@@ -74,7 +74,6 @@ jobs:
 #        with:
 # #         key: ${{ secrets.YC_SA }}  
         run: |
-          yc config set instance-service-account true
           yc managed-kubernetes cluster create \
           --name ${{ env.ya_cluster_name }} \
           --network-name ${{ env.ya_network-name }} \
