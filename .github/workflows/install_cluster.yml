@@ -106,7 +106,7 @@ jobs:
           --platform-id standard-v3 \
           --container-runtime containerd \
           --preemptible \
-          --network-interface subnets=${{ env.ya_subnet }}
+          --network-interface subnets=${{ env.ya_subnet }} \
           --metadata-from-file ssh-keys=ssh_keys
           
  

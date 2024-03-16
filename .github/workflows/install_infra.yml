@@ -10,7 +10,7 @@ jobs:
   create_cluster:
     runs-on: ubuntu-latest
     env:
-      ya_cluster_name: testcluster
+      ya_cluster_name: ${{ vars.YA_CLUSTER_NAME }}
       ya_network-name: default
       ya_zone: ru-central1-a
       ya_subnet: default-ru-central1-a
@@ -27,10 +27,10 @@ jobs:
         with:
           enable-cache: true
 
-      - run: 'echo "$SSH_KEY" > key.json'
+      - run: 'echo "$YA_KEY" > key.json'
         shell: bash
         env:
-          SSH_KEY: ${{ secrets.YC_SA }}
+          YA_KEY: ${{ secrets.YC_SA }}
    
       - name: set yandex env
         run: |
@@ -56,6 +56,7 @@ jobs:
       - name: view config
         run: |
           kubectl config view
+          kubectl cluster-info
 
 
 
