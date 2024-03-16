@@ -10,7 +10,7 @@ jobs:
   create_cluster:
     runs-on: ubuntu-latest
     env:
-      ya_cluster_name: testcluster
+      ya_cluster_name: ${{ YA_CLUSTER_NAME }}
       ya_network-name: default
       ya_zone: ru-central1-a
       ya_subnet: default-ru-central1-a
@@ -31,7 +31,7 @@ jobs:
 #        run: |
  #         curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash -s -- -a
 
-      - name:  test ya
+      - name:  install yandex cli
         uses: nightstory/setup-yc@v1
         with:
           enable-cache: true
@@ -55,10 +55,10 @@ jobs:
 #        with:
 #          yc-sa-json-credentials: ${{ secrets.YC_SA }}
 
-      - run: 'echo "$SSH_KEY" > key.json'
+      - run: 'echo "$YA_KEY" > key.json'
         shell: bash
         env:
-          SSH_KEY: ${{ secrets.YC_SA }}
+          YA_KEY: ${{ secrets.YC_SA }}
     
 #      - name: Create key
 #        run: |
@@ -84,8 +84,13 @@ jobs:
           --service-ipv4-range 172.16.20.0/22 \
           --node-ipv4-mask-size 26 \
           --service-account-name ${{ env.ya_account }} \
-          --node-service-account-name ${{ env.ya_account }}
+          --node-service-account-name ${{ env.ya_account }} \
+          --kms-key-name testkey
  
+      - run: 'echo "$SSH_KEY" > ssh_keys'
+        shell: bash
+        env:
+          SSH_KEY: ${{ secrets.YC_SSH_KEY }}
 
       - name: Create nodes
         run: |
@@ -102,6 +107,8 @@ jobs:
           --container-runtime containerd \
           --preemptible \
           --network-interface subnets=${{ env.ya_subnet }}
+          --metadata-from-file ssh-keys=ssh_keys
+          
  
 
 
