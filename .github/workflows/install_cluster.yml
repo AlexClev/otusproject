@@ -87,10 +87,10 @@ jobs:
           --node-service-account-name ${{ env.ya_account }} \
           --kms-key-name testkey
  
-      - run: 'echo "$SSH_KEY" > ssh_keys'
-        shell: bash
-        env:
-          SSH_KEY: ${{ secrets.YC_SSH_KEY }}
+#      - run: 'echo "$SSH_KEY" > ssh_keys'
+#        shell: bash
+#        env:
+#          SSH_KEY: ${{ secrets.YC_SSH_KEY }}
 
       - name: Create nodes
         run: |
@@ -107,7 +107,7 @@ jobs:
           --container-runtime containerd \
           --preemptible \
           --network-interface subnets=${{ env.ya_subnet }} \
-          --metadata-from-file ssh-keys=ssh_keys
+          --metadata ssh-keys="${{ secrets.YC_SSH_KEY }}"
           
  
 

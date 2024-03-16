@@ -70,10 +70,10 @@ jobs:
           yc config set folder-id ${{ env.ya_folder_id }}
           yc config set service-account-key key.json
    
-      - run: 'echo "$SSH_KEY" > ssh_keys'
-        shell: bash
-        env:
-          SSH_KEY: ${{ secrets.YC_SSH_KEY }}
+#      - run: 'echo "$SSH_KEY" > ssh_keys'
+#        shell: bash
+#        env:
+#          SSH_KEY: ${{ secrets.YC_SSH_KEY }}
 
       - name: Create nodes
         run: |
