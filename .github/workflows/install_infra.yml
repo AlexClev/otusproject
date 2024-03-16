@@ -87,12 +87,25 @@ jobs:
         run: |
           kubectl apply -f https://raw.githubusercontent.com/AlexClev/otusproject/main/ingress/ingress-deploy.yaml
 
+      - name: create keys for argo
+        run: 'echo "${{ secrets.ARGO_CRT }}" > tls.crt && echo "${{ secrets.ARGO_KEY }}" > tls.key'
+        shell: bash
+  
       - name: install argocd
         run: |
-          kubectl create secret tls argocd-server-tls --cert='F:\GITOTIS\Project\argocd\tls.crt' --key='F:\GITOTIS\Project\argocd\tls.key' -n argocd
+          kubectl create namespace argocd
+          kubectl create secret tls argocd-server-tls --cert='tls.crt' --key='tls.key' -n argocd
           kubectl apply -f https://raw.githubusercontent.com/AlexClev/otusproject/main/argocd/argocd-deploy.yaml
 
+      - name: install argocd cli
+        run: |
+          curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+          sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
 
+      - name: change pass argocd 
+        run: |
+          kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+#          argocd login <ARGOCD_SERVER>
 
 
 
