@@ -17,6 +17,7 @@ jobs:
       ya_account: ${{ secrets.YC_SA }}
       ya_cloud_id: ${{ vars.YA_CLUSTER_ID }}
       ya_folder_id: ${{ vars.YA_FOLDER_ID }}
+      
    
     steps:
       - name: Checkout
