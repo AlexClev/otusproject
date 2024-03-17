@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ya_cluster_name: ${{ vars.YA_CLUSTER_NAME }}
-      ya_account: ${{ secrets.YC_SA }}
+#      ya_account: ${{ secrets.YC_ACCOUNT }}
       ya_cloud_id: ${{ vars.YA_CLUSTER_ID }}
       ya_folder_id: ${{ vars.YA_FOLDER_ID }}
    
@@ -68,7 +68,7 @@ jobs:
         run: |
           kubectl get svc -n argocd argocd-server --output jsonpath='{.status.loadBalancer.ingress[0].ip}' | xargs -I ARGOCD_SERVER argocd login ARGOCD_SERVER.nip.io --username admin --password ${{ secrets.ARGO_PASS }} --insecure
           argocd repo add ${{ vars.GIT_ADDRESS }} --username ${{ secrets.GIT_LOGIN }} --password ${{ secrets.GIT_TOKEN }}  –upsert
-          
+
 
 
 

@@ -14,7 +14,7 @@ jobs:
       ya_network-name: default
       ya_zone: ru-central1-a
       ya_subnet: default-ru-central1-a
-      ya_account: ${{ secrets.YC_SA }}
+      ya_account: ${{ secrets.YC_ACCOUNT }}
       ya_cloud_id: ${{ vars.YA_CLUSTER_ID }}
       ya_folder_id: ${{ vars.YA_FOLDER_ID }}
       
