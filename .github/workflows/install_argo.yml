@@ -62,7 +62,7 @@ jobs:
         id: argopass
         run: |
           kubectl wait --for=condition=ready pod --all -n argocd --timeout=2h
-          kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo >> $GITHUB_OUTPUT 
+          kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d >> $GITHUB_OUTPUT 
                   
       - name: change pass argocd 
         run: |
