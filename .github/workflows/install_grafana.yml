@@ -59,6 +59,7 @@ jobs:
           kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-prometheusrules.yaml
           kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-scrapeconfigs.yaml
           kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-servicemonitors.yaml
+          kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-prometheuses.yaml
        
       - name: install grafana and prometheus
         run: |
