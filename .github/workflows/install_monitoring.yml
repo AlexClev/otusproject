@@ -1,0 +1,73 @@
+name: create monitoring
+
+on:
+  workflow_dispatch
+#  push:
+    # при создании pull request на main
+#    branches: [ main ]
+
+jobs:
+  install_monitoring:
+    runs-on: ubuntu-latest
+    env:
+      ya_cluster_name: ${{ vars.YA_CLUSTER_NAME }}
+#      ya_account: ${{ secrets.YA_ACCOUNT }}
+      ya_cloud_id: ${{ vars.YA_CLUSTER_ID }}
+      ya_folder_id: ${{ vars.YA_FOLDER_ID }}
+   
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: install yandex cli
+        uses: nightstory/setup-yc@v1
+        with:
+          enable-cache: true
+
+      - run: 'echo "$YA_KEY" > key.json'
+        shell: bash
+        env:
+          YA_KEY: ${{ secrets.YC_SA }}
+   
+      - name: install kubectl
+        uses: azure/setup-kubectl@v3
+        id: install
+
+      - name: set yandex env
+        run: |
+          yc config set cloud-id ${{ env.ya_cloud_id }}
+          yc config set folder-id ${{ env.ya_folder_id }}
+          yc config set service-account-key key.json
+          yc managed-kubernetes cluster get-credentials ${{ env.ya_cluster_name }} --external
+
+      - name: install argocd cli
+        run: |
+          curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+          sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+
+      - name: login argocd 
+        run: |
+          argocd login ${{ vars.ARGO_URI }} --username admin --password ${{ secrets.ARGO_PASS }} 
+       
+      - name: install cert-manager
+        run: |
+          argocd app create cert-manager --repo ${{ vars.GIT_ADDRESS }} --path helm-charts/cert-manager  --dest-namespace apps --dest-server https://kubernetes.default.svc --sync-policy auto --sync-option CreateNamespace=true
+
+      - name: install grafana and prometheus
+        run: |
+          argocd app create prom-stack --repo ${{ vars.GIT_ADDRESS }} --path helm-charts/kube-prometheus-stack  --dest-namespace monitoring --dest-server https://kubernetes.default.svc --sync-policy auto --sync-option ServerSideApply=true,Validate=false,CreateNamespace=true,Replace=true --helm-skip-crds
+
+      - name: install loki
+        run: |
+          argocd app create loki --repo ${{ vars.GIT_ADDRESS }} --path Monitoring/helm-charts/grafana-loki  --dest-namespace monitoring --dest-server https://kubernetes.default.svc --sync-policy auto --sync-option CreateNamespace=true
+
+          
+
+
+
+
+
+
+
+
+          
