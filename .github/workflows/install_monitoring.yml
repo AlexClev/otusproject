@@ -67,7 +67,7 @@ jobs:
        
       - name: install grafana and prometheus
         run: |
-          argocd app create prom-stack --repo ${{ vars.GIT_ADDRESS }} --path helm-charts/kube-prometheus-stack  --dest-namespace monitoring --dest-server https://kubernetes.default.svc --sync-policy auto --sync-option ServerSideApply=true,Validate=false,Replace=true --set grafana.adminPassword=${{ secrets.GRAFANA_PASS }}
+          argocd app create prom-stack --repo ${{ vars.GIT_ADDRESS }} --path helm-charts/kube-prometheus-stack  --dest-namespace monitoring --dest-server https://kubernetes.default.svc --sync-policy auto --sync-option ServerSideApply=true,Validate=false,Replace=true --helm-set-string grafana.adminPassword=${{ secrets.GRAFANA_PASS }}
 
  
 
