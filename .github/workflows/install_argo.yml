@@ -1,4 +1,4 @@
-name: create infrastructure
+name: settings argo
 
 on:
   workflow_dispatch
