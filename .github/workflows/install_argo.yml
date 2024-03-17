@@ -64,10 +64,9 @@ jobs:
           kubectl wait --for=condition=ready pod --all -n argocd --timeout=2h
           kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo >> $GITHUB_OUTPUT 
                   
-
       - name: change pass argocd 
         run: |
-          kubectl get svc -n argocd argocd-server --output jsonpath='{.status.loadBalancer.ingress[0].ip}' | xargs -I ARGOCD_SERVER argocd login ARGOCD_SERVER.nip.io --username admin --password ${{ steps.argopass.outputs.name }} --insecure
+          argocd login ${{ vars.ARGO_URI }} --username admin --password ${{ steps.argopass.outputs.name }}
           argocd account update-password --account admin --current-password ${{ steps.argopass.outputs.name }} --new-password ${{ secrets.AGRO_PASS }}
 
       - name: add git repository
