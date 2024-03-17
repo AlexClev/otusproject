@@ -66,7 +66,7 @@ jobs:
                   
       - name: change pass argocd 
         run: |
-          argocd login ${{ vars.ARGO_URI }} --username admin --password ${{ steps.argopass.outputs.oldpass }}
+          argocd login ${{ vars.ARGO_URI }} --username admin --password ${{ steps.argopass.outputs.oldpass }} --insecure
           argocd account update-password --account admin --current-password ${{ steps.argopass.outputs.oldpass }} --new-password ${{ secrets.AGRO_PASS }}
 
       - name: add git repository
