@@ -61,7 +61,7 @@ jobs:
 
       - name: change pass argocd 
         run: |
-          kubectl wait --for=condition=Ready pod argocd-server -n argocd
+          kubectl wait --for=condition=ready pod --all -n argocd
           kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d | xargs -I ARGOCD_PASS argocd account update-password --account admin --current-password ARGOCD_PASS --new-password ${{ secrets.ARGO_PASS }}
 
       - name: add git repository
