@@ -47,17 +47,12 @@ jobs:
 
       - name: login argocd 
         run: |
-          argocd login ${{ vars.ARGO_URI }} --username admin --password ${{ secrets.AGRO_PASS }} 
+          argocd login ${{ vars.ARGO_URI }} --username admin --password ${{ secrets.AGRO_PASS }} --insecure
        
-      - name: install cert-manager
-        run: |
-          argocd app create cert-manager --repo ${{ vars.GIT_ADDRESS }} --path helm-charts/cert-manager  --dest-namespace apps --dest-server https://kubernetes.default.svc --sync-policy auto --sync-option CreateNamespace=true
-
-      - name: install grafana and prometheus
+      - name: install web app
         run: |
           argocd app create shop --repo ${{ vars.GIT_ADDRESS }} --path helm-charts/demo  --dest-namespace apps --dest-server https://kubernetes.default.svc --sync-policy auto --sync-option CreateNamespace=true  
-
-
+          
           
 
 
