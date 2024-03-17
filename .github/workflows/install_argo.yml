@@ -61,11 +61,12 @@ jobs:
       - name: get pass argocd 
         id: argopass
         run: |
-          kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d | xargs -I OLD_PASS echo "oldpass=OLD_PASS" >> $GITHUB_OUTPUT 
+          kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d | xargs -I OLD_PASS echo "$GITHUB_OUTPUT =OLD_PASS" >> $GITHUB_OUTPUT 
+          echo $GITHUB_OUTPUT 
                   
       - name: change pass argocd 
         run: |
-          argocd login ${{ vars.ARGO_URI }} --username admin --password ${{ steps.argopass.outputs.name }}
+          argocd login ${{ vars.ARGO_URI }} --username admin --password ${{ steps.argopass.outputs.oldpass }}
           argocd account update-password --account admin --current-password "${{ steps.argopass.outputs.oldpass }}" --new-password "${{ secrets.AGRO_PASS }}""
 
       - name: add git repository
