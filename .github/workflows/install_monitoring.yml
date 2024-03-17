@@ -49,10 +49,6 @@ jobs:
         run: |
           argocd login ${{ vars.ARGO_URI }} --username admin --password ${{ secrets.ARGO_PASS }} 
        
-      - name: install cert-manager
-        run: |
-          argocd app create cert-manager --repo ${{ vars.GIT_ADDRESS }} --path helm-charts/cert-manager  --dest-namespace apps --dest-server https://kubernetes.default.svc --sync-policy auto --sync-option CreateNamespace=true
-
       - name: install grafana and prometheus
         run: |
           argocd app create prom-stack --repo ${{ vars.GIT_ADDRESS }} --path helm-charts/kube-prometheus-stack  --dest-namespace monitoring --dest-server https://kubernetes.default.svc --sync-policy auto --sync-option ServerSideApply=true,Validate=false,CreateNamespace=true,Replace=true --helm-skip-crds
