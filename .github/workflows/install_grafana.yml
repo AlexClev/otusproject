@@ -48,6 +48,17 @@ jobs:
       - name: login argocd 
         run: |
           argocd login ${{ vars.ARGO_URI }} --username admin --password ${{ secrets.AGRO_PASS }}  --insecure
+
+      - name: install CRD 
+        run: |
+          kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-alertmanagerconfigs.yaml
+          kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-alertmanagers.yaml
+          kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-podmonitors.yaml
+          kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-probes.yaml
+          kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-prometheusagents.yaml
+          kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-prometheuses.yaml
+          kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-alertmanagerconfigs.yaml
+          kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-prometheusrules.yaml
        
       - name: install grafana and prometheus
         run: |
