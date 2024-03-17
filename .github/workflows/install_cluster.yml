@@ -17,6 +17,7 @@ jobs:
       ya_account: ${{ secrets.YC_ACCOUNT }}
       ya_cloud_id: ${{ vars.YA_CLUSTER_ID }}
       ya_folder_id: ${{ vars.YA_FOLDER_ID }}
+      ya_kms_key: keyencrypt
       
    
     steps:
@@ -86,7 +87,7 @@ jobs:
           --node-ipv4-mask-size 26 \
           --service-account-name ${{ env.ya_account }} \
           --node-service-account-name ${{ env.ya_account }} \
-          --kms-key-name testkey
+          --kms-key-name ${{ env.ya_kms_key }}
  
 #      - run: 'echo "$SSH_KEY" > ssh_keys'
 #        shell: bash
