@@ -48,6 +48,10 @@ jobs:
         run: |
           kubectl apply -n argocd  -f https://raw.githubusercontent.com/AlexClev/otusproject/main/argocd/argocd-deploy.yaml
 
+      - name: install ingress
+        run: |
+          kubectl apply -f https://raw.githubusercontent.com/AlexClev/otusproject/main/ingress/ingress-deploy.yaml 
+
 
       - name: install argocd cli
         run: |
@@ -56,7 +60,7 @@ jobs:
 
       - name: change pass argocd 
         run: |
-          kubectl wait --for=condition=ready pod --all -n argocd
+          kubectl wait --for=condition=ready pod --all -n argocd --timeout=2h
           kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d | xargs -I ARGOCD_PASS argocd account update-password --account admin --current-password ARGOCD_PASS --new-password ${{ secrets.ARGO_PASS }}
 
       - name: add git repository
