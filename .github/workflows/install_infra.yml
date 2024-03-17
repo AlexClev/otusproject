@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ya_cluster_name: ${{ vars.YA_CLUSTER_NAME }}
-#      ya_account: ${{ secrets.YC_ACCOUNT }}
+#      ya_account: ${{ secrets.YA_ACCOUNT }}
       ya_cloud_id: ${{ vars.YA_CLUSTER_ID }}
       ya_folder_id: ${{ vars.YA_FOLDER_ID }}
    
