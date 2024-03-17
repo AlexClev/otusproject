@@ -59,11 +59,11 @@ jobs:
           kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-prometheusrules.yaml
           kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-scrapeconfigs.yaml
           kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-servicemonitors.yaml
-          kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-prometheuses.yaml
+#          kubectl apply -n monitoring -f https://raw.githubusercontent.com/AlexClev/otusproject/main/helm-charts/kube-prometheus-stack/charts/crds/crds/crd-prometheuses.yaml
        
       - name: install grafana and prometheus
         run: |
-          argocd app create prom-stack --repo ${{ vars.GIT_ADDRESS }} --path helm-charts/kube-prometheus-stack  --dest-namespace monitoring --dest-server https://kubernetes.default.svc --sync-policy auto --sync-option ServerSideApply=true,Validate=false,CreateNamespace=true,Replace=true --helm-skip-crds
+          argocd app create prom-stack --repo ${{ vars.GIT_ADDRESS }} --path helm-charts/kube-prometheus-stack  --dest-namespace monitoring --dest-server https://kubernetes.default.svc --sync-policy auto --sync-option ServerSideApply=true,Validate=false,CreateNamespace=true,Replace=true 
 
 
 
