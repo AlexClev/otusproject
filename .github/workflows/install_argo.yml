@@ -1,0 +1,63 @@
+name: create infrastructure
+
+on:
+  workflow_dispatch
+#  push:
+    # при создании pull request на main
+#    branches: [ main ]
+
+jobs:
+  create_cluster:
+    runs-on: ubuntu-latest
+    env:
+      ya_cluster_name: ${{ vars.YA_CLUSTER_NAME }}
+#      ya_account: ${{ secrets.YA_ACCOUNT }}
+      ya_cloud_id: ${{ vars.YA_CLUSTER_ID }}
+      ya_folder_id: ${{ vars.YA_FOLDER_ID }}
+   
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name:  install yandex cli
+        uses: nightstory/setup-yc@v1
+        with:
+          enable-cache: true
+
+      - run: 'echo "$YA_KEY" > key.json'
+        shell: bash
+        env:
+          YA_KEY: ${{ secrets.YC_SA }}
+   
+      - name: install kubectl
+        uses: azure/setup-kubectl@v3
+        id: install
+
+      - name: set yandex env
+        run: |
+          yc config set cloud-id ${{ env.ya_cloud_id }}
+          yc config set folder-id ${{ env.ya_folder_id }}
+          yc config set service-account-key key.json
+          yc managed-kubernetes cluster get-credentials ${{ env.ya_cluster_name }} --external
+
+      - name: install argocd cli
+        run: |
+          curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+          sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+
+      - name: change pass argocd 
+        run: |
+          kubectl wait --for=condition=ready pod --all -n argocd
+          kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d | xargs -I ARGOCD_PASS argocd account update-password --account admin --current-password ARGOCD_PASS --new-password ${{ secrets.ARGO_PASS }}
+
+      - name: add git repository
+        run: |
+          kubectl get svc -n argocd argocd-server --output jsonpath='{.status.loadBalancer.ingress[0].ip}' | xargs -I ARGOCD_SERVER argocd login ARGOCD_SERVER.nip.io --username admin --password ${{ secrets.ARGO_PASS }} --insecure
+          argocd repo add ${{ vars.GIT_ADDRESS }} --username ${{ secrets.GIT_LOGIN }} --password ${{ secrets.GIT_TOKEN }}  –upsert
+
+
+
+
+
+
+          
