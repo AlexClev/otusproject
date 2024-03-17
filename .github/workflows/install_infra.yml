@@ -7,7 +7,7 @@ on:
 #    branches: [ main ]
 
 jobs:
-  create_cluster:
+  install_infra:
     runs-on: ubuntu-latest
     env:
       ya_cluster_name: ${{ vars.YA_CLUSTER_NAME }}
