@@ -47,7 +47,7 @@ jobs:
 
       - name: login argocd 
         run: |
-          argocd login ${{ vars.ARGO_URI }} --username admin --password ${{ secrets.ARGO_PASS }} 
+          argocd login ${{ vars.ARGO_URI }} --username admin --password ${{ secrets.AGRO_PASS }} 
        
       - name: install cert-manager
         run: |
