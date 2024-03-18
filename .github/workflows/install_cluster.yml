@@ -109,7 +109,8 @@ jobs:
           --container-runtime containerd \
           --preemptible \
           --network-interface subnets=${{ env.ya_subnet }} \
-          --metadata ssh-keys="${{ secrets.YC_SSH_KEY }}"
+          --metadata ssh-keys="${{ secrets.YC_SSH_KEY }}" \
+          --public-ip
           
  
 
