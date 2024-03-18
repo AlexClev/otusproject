@@ -24,48 +24,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
-#      - name: Yandex Cloud login
-#        uses: yc-actions/yc-cr-login@v1
-#        with:
-#          yc-sa-json-credentials: ${{ secrets.YC_SA }}
-
-#      - name: install CLI
-#        run: |
- #         curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash -s -- -a
-
       - name:  install yandex cli
         uses: nightstory/setup-yc@v1
         with:
           enable-cache: true
-
-#      - name: install kubectl
-#        run: |
-#          sudo apt-get update && sudo apt-get install -y apt-transport-https
-#          curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-#          echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
- #         sudo apt-get update
-#          sudo apt-get install -y kubectl
-#      - name:  test ya
-#        uses: nikita-volkov/yc-cli.github-action@v1.0.0
-#        with: 
-#          key: ${{ secrets.YC_SA }}
-#          args: config set cloud-id ${{ env.ya_cloud_id }}
-
-#      - name: IAM Token
-#        id: issue-iam-token
-#        uses: yc-actions/yc-iam-token@v1
-#        with:
-#          yc-sa-json-credentials: ${{ secrets.YC_SA }}
 
       - run: 'echo "$YA_KEY" > key.json'
         shell: bash
         env:
           YA_KEY: ${{ secrets.YC_SA }}
     
-#      - name: Create key
-#        run: |
-#          echo ${{ secrets.YC_SA }} > key.json
-
       - name: set yandex env
         run: |
           yc config set cloud-id ${{ env.ya_cloud_id }}
@@ -89,11 +57,6 @@ jobs:
           --node-service-account-name ${{ env.ya_account }} \
           --kms-key-name ${{ env.ya_kms_key }}
  
-#      - run: 'echo "$SSH_KEY" > ssh_keys'
-#        shell: bash
-#        env:
-#          SSH_KEY: ${{ secrets.YC_SSH_KEY }}
-
       - name: Create nodes
         run: |
           yc managed-kubernetes node-group create \

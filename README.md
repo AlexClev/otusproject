@@ -116,7 +116,7 @@ SSH – ключи для входа на виртуальные машины д
 
 #### Условия
 
-### Требуется подготовить Yandex Cloud (см. раздел Инфраструктура Yandex Cloud), заполнить значения переменных GitHub YA_ACCOUNT, YC_SA, YC_SSH_KEY YA_CLUSTER_ID, YA_CLUSTER_NAME, YA_FOLDER_ID и GitHub secrets YA_ACCOUNT, YC_SA, YC_SSH_KEY
+Требуется подготовить Yandex Cloud (см. раздел Инфраструктура Yandex Cloud), заполнить значения переменных GitHub YA_ACCOUNT, YC_SA, YC_SSH_KEY YA_CLUSTER_ID, YA_CLUSTER_NAME, YA_FOLDER_ID и GitHub secrets YA_ACCOUNT, YC_SA, YC_SSH_KEY
 
 #### Действия
 
@@ -125,6 +125,7 @@ SSH – ключи для входа на виртуальные машины д
 #### Результат
 
 Будет создан кластер Kubernetes с указанным именем , состоящий из 2 нод.
+
 
 ### Развертывание инфраструктуры
 
@@ -172,4 +173,4 @@ Grafana будет доступна по адресу GRAFANA_URI (<https://graf
 
 Будут развернуты микросервисы приложения Google microservices-demo
 
-Демонстрационное приложение будет доступно по адресу (<https://demo.projectotus.publicvm.com>)
+Демонстрационное приложение будет доступно по адресу <https://demo.projectotus.publicvm.com>
